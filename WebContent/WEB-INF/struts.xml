@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+   
+	<constant name="struts.enable.DynamicMethodInvocation" value="false" />
+	<constant name="struts.devMode" value="true" />
+
+
+
+
+
+	<package name="default" namespace="/" extends="struts-default">
+
+		<default-action-ref name="index" />
+
+		<global-results>
+			<result name="error">/WEB-INF/jsp/error.jsp</result>
+		</global-results>
+
+		<global-exception-mappings>
+			<exception-mapping exception="java.lang.Exception"
+				result="error" />
+		</global-exception-mappings>
+		<action name="index">
+			<result type="redirectAction">
+				<param name="actionName">login</param>
+				<param name="namespace">/</param>
+			</result>
+		</action>
+		<action name="login" class="com.LoginAction" method="login">
+			<result name="error">/error.jsp</result>
+			<result name="success">/dashboard.jsp</result>
+		</action>
+		<action name="register" class="com.RegisterAction" method="register">
+			<result name="error">/error.jsp</result>
+			<result name="success">/message.jsp</result>
+		</action>
+		<action name="collectors" class="com.CollectorsAction" method="updateCollectors">
+			<result name="error">/error.jsp</result>
+			<result name="success">/message.jsp</result>
+		</action>
+		<action name="stations" class="com.StationsAction" method="updateStations">
+			<result name="error">/error.jsp</result>
+			<result name="success">/message.jsp</result>
+		</action>
+		<action name="units" class="com.UnitsAction" method="updateUnits">
+			<result name="error">/error.jsp</result>
+			<result name="success">/message.jsp</result>
+		</action>
+		
+		<action name="equipments" class="com.EquipmentsAction" method="updateEquipments">
+			<result name="error">/error.jsp</result>
+			<result name="success">/message.jsp</result>
+		</action>
+		<action name="mps" class="com.MpsAction" method="updateMps">
+			<result name="error">/error.jsp</result>
+			<result name="success">/message.jsp</result>
+		</action>
+		
+		<action name="spectra" class="com.config.SpectraAction" method="updateSpectra">
+			<result name="error">/error.jsp</result>
+			<result name="success">/message.jsp</result>
+		</action>
+		<action name="bbrms" class="com.config.BBrmsAction" method="updateBBrms">
+			<result name="error">/error.jsp</result>
+			<result name="success">/message.jsp</result>
+		</action>
+		
+		<action name="displayUnits" class="com.DisplayUnitsAction">
+			<result name="error">/error.jsp</result>
+			<result name="success">/update_unit.jsp</result>
+		</action>
+		 <action name="login" class="test.login">
+         <result name="success">/login-check.jsp</result>
+		</action>
+	</package>
+  
+	    <package name="test" extends="struts-default">
+        <action name="login" class="test.login">
+            <result name="success">/login-check.jsp</result>
+         
+        </action>
+    </package>
+
+</struts>
+
