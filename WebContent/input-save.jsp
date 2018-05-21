@@ -47,15 +47,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="keywords"
 	content="App Loction Form,Login Forms,Sign up Forms,Registration Forms,News latter Forms,Elements" ./>
-<script type="application/x-javascript">
-	
-	
-	
-	 addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } 
-
-
-
-</script>
+<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
 
 <!--webfonts-->
 <link
@@ -64,55 +56,42 @@
 <!--//webfonts-->
 </head>
 <body>
-	<%
-		String text = request.getParameter("text");
-	%>
-	<div>
-		<form name="form" method="post" action="debut.jsp">
+	<div class="col-sm-6 col-sm-offset-3 form-box2">
+		<div class="form-x">
+			<% 
+String question=request.getParameter("question");
+String answer=request.getParameter("answer");
+String detail=request.getParameter("detail");
+String tid="0";
+Class.forName("com.mysql.jdbc.Driver");
 
-			<table
-				style="position: absolute; left: 200px; top: 450px; width: 800; border: 1; ">
-				<tr>
-					<td width="318"><input name="text" type="text"> <input
-						type="submit" name="queren" value="validé"
-						onclick="JavaScript:window.location='debut.jsp';" /></td>
-				</tr>
-			</table>
-		</form>
-	</div>
-	<div><img src="assets/img/ai2.png" style="position: absolute;left:250px;top:100px;" alt="ai" /></div>
-	 <input  type="button" style="position: absolute;left:690px;top:455px;" name="enrigester" value="nouvelle question" onclick="JavaScript:window.location='input.jsp';" />
-	<%
-		String text_ai = "Salut!";
-		String text_detail = "";
 
-	//text = "";
+Connection con=DriverManager.getConnection("jdbc:mysql://localhost/tvai?useUnicode=true&characterEncoding=utf-8","root","");
+PreparedStatement ps=con.prepareStatement("select max(tid) from textdetail"); 
+ResultSet rs=ps.executeQuery();
+if(rs.next()){
+	tid=rs.getString("max(tid)");
+}
+int tint = Integer.parseInt(tid);
+tint +=1;
 
-		/*if (text.indexOf("algorithme") != -1) {
-			text_ai = "Voila le detail";
-		}*/
-	%>
-	
-	<% 
-		Class.forName("com.mysql.jdbc.Driver");
-		Connection con = DriverManager
-				.getConnection("jdbc:mysql://localhost/tvai?useUnicode=true&characterEncoding=utf-8", "root", "");
-		/*if (text_ai == "Voila le detail") {*/
-			PreparedStatement ps = con
-					.prepareStatement("select * from textdetail where Dtext like  '%" + text + "%'");
+PreparedStatement ps2=con.prepareStatement("insert into textdetail values(?,?,?,?)"); 
 
-			ResultSet rs = ps.executeQuery();
-			if (rs.next()) {
-				text_detail = rs.getString("DtextD");
-				text_ai=rs.getString("textR");
-			}
-		/*}*/
-	%>
-	<div class="tab-ai" style="font-size:18px;position: absolute; left: 220px; top: 42px; color: black;">
-		<%=text_ai%>
-	</div>
-	<div class="tab">
-		<div class="tab-content" id="tab-content"><%=text_detail%></div>
+ps2.setInt(1,tint);
+ps2.setString(2,question);
+ps2.setString(3,detail);
+ps2.setString(4,answer);
+
+ps.execute();
+ps2.execute();
+con.close(); 
+
+%>
+			success
+			<form action="debut.jsp">
+				<input type="submit" name="fanhui" value="retourner" />
+			</form>
+		</div>
 	</div>
 
 	<!-- Javascript -->
@@ -121,6 +100,12 @@
 	<script src="assets/js/jquery.backstretch.min.js"></script>
 	<script src="assets/js/scripts.js"></script>
 
+	<!--[if lt IE 10]>
+            <script src="assets/js/placeholder.js"></script>
+        <![endif]-->
 
 </body>
 </html>
+
+
+

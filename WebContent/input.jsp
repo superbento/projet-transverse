@@ -64,55 +64,58 @@
 <!--//webfonts-->
 </head>
 <body>
-	<%
-		String text = request.getParameter("text");
-	%>
-	<div>
-		<form name="form" method="post" action="debut.jsp">
 
-			<table
-				style="position: absolute; left: 200px; top: 450px; width: 800; border: 1; ">
-				<tr>
-					<td width="318"><input name="text" type="text"> <input
-						type="submit" name="queren" value="validé"
-						onclick="JavaScript:window.location='debut.jsp';" /></td>
-				</tr>
-			</table>
-		</form>
-	</div>
-	<div><img src="assets/img/ai2.png" style="position: absolute;left:250px;top:100px;" alt="ai" /></div>
-	 <input  type="button" style="position: absolute;left:690px;top:455px;" name="enrigester" value="nouvelle question" onclick="JavaScript:window.location='input.jsp';" />
-	<%
-		String text_ai = "Salut!";
-		String text_detail = "";
+	<div class="top-content">
 
-	//text = "";
+		<div class="inner-bg">
+			<div class="container">
+				<div class="row">
+					<div class="col-sm-8 col-sm-offset-2 text">
+						<h1>
+							<strong>J'ai</strong> les questions
+						</h1>
+						<div class="description">
+							<p>et les réponses</p>
+						</div>
+					</div>
 
-		/*if (text.indexOf("algorithme") != -1) {
-			text_ai = "Voila le detail";
-		}*/
-	%>
-	
-	<% 
-		Class.forName("com.mysql.jdbc.Driver");
-		Connection con = DriverManager
-				.getConnection("jdbc:mysql://localhost/tvai?useUnicode=true&characterEncoding=utf-8", "root", "");
-		/*if (text_ai == "Voila le detail") {*/
-			PreparedStatement ps = con
-					.prepareStatement("select * from textdetail where Dtext like  '%" + text + "%'");
-
-			ResultSet rs = ps.executeQuery();
-			if (rs.next()) {
-				text_detail = rs.getString("DtextD");
-				text_ai=rs.getString("textR");
-			}
-		/*}*/
-	%>
-	<div class="tab-ai" style="font-size:18px;position: absolute; left: 220px; top: 42px; color: black;">
-		<%=text_ai%>
-	</div>
-	<div class="tab">
-		<div class="tab-content" id="tab-content"><%=text_detail%></div>
+				</div>
+				<div class="col-sm-8 col-sm-offset-2 form-box2">
+					<div class="form-x">
+						
+						<form name="form1" method="post"
+							action="input-save.jsp">
+							<div align="center" class="STYLE1"></div>
+							<table style="width: 500; height: 120; border: 1;">
+								<tr>
+									<td width="144">importer question ：</td>
+									<td width="310"><textarea name="question" id="question"
+											style="width: 300px; height: 70px;"></textarea></td>
+								</tr>
+								<tr>
+									<td width="144">importer answer ：</td>
+									<td width="310"><textarea name="answer" id="answer"
+											style="width: 300px; height: 70px;"></textarea></td>
+								</tr>
+								<tr>
+									<td width="144">importer détail：</td>
+									<td width="310"><textarea name="detail" id="detail"
+											style="width: 300px; height: 500px;"></textarea></td>
+								</tr>
+								<tr>
+									<td colspan="2" align="center"><input type="submit"
+										name="Submit" value="validé"> <input type="reset"
+										name="Submit2" value="refaire"></td>
+								</tr>
+							</table>
+						</form>
+						<form action="debut.jsp">
+							<input type="submit" name="fanhui" value="retourner" />
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
 
 	<!-- Javascript -->
